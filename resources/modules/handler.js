@@ -1,14 +1,13 @@
-exports.getRows = async (client) =>
+exports.getRawData = async (client, sheetKey) =>
 {
-  const doc = client.doc;
-
   // Create a connection between the bot and the Google sheet
+  //const doc = new client.gs("1NQNg2cLu3eS4aa6ZXF056BJLOTcQf-qVdOtDggkWiTE");
+  const doc = new client.gs(sheetKey);
   await doc.useServiceAccountAuth(client.google);
   await doc.loadInfo();
   
-  // Automatically find the Catalog sheet. Yay!
   let sheetId = 0;
-  doc.sheetsByIndex.forEach(sheet => { if (sheet.title == "Main Catalog") sheetId = sheet.sheetId; });
+  doc.sheetsByIndex.forEach(sheet => { if (sheet.title == "Raw Data") sheetId = sheet.sheetId; });
 
   // Get the sheet and an obj array containing its rows
   const sheet = doc.sheetsById[sheetId];

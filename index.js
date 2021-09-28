@@ -9,6 +9,7 @@ const path = require('path');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const dateformat = require('dateformat');
+const ss = require('simple-statistics');
 
 const handler = require('./resources/modules/handler.js');
 
@@ -34,14 +35,11 @@ client.google = google;
 client.fetch = fetch;
 client.fs = fs;
 client.dateformat = dateformat;
+client.ss = ss;
 
 client.handler = handler;
 
 client.OWNER_IDS = OWNER_IDS;
-
-// Initialize Google Sheets API
-const doc = new client.gs(process.env.SHEET_KEY);
-client.doc = doc;
 
 // Initialize events
 fs.readdir("./events/", (err, files) =>
